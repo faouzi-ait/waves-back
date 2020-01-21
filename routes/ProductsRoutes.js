@@ -1,13 +1,29 @@
 const router = require("express").Router();
-const productsRoutes = require("../controllers/ProductsController");
-const woodRoutes = require("../controllers/WoodController");
+const brandController = require("../controllers/BrandController");
+const guitardController = require("../controllers/GuitardsController");
+const woodController = require("../controllers/WoodController");
 const AuthGuard = require("../guard/AuthGuard");
 const Admin = require("../guard/AdminCheck");
 
-router.get("/products/brands", productsRoutes.brands);
-router.get("/products/woods", woodRoutes.woods);
+router.get("/products/guitards", guitardController.Guitard);
+router.get("/products/guitard/:id", guitardController.GuitardByID);
+router.get("/products/brands", brandController.brands);
+router.get("/products/woods", woodController.woods);
 
-router.post("/products/newbrand", AuthGuard, Admin, productsRoutes.createBrand);
-router.post("/products/newwood", AuthGuard, Admin, woodRoutes.createWood);
+router.post(
+  "/products/newguitard",
+  AuthGuard,
+  Admin,
+  guitardController.createGuitards
+);
+
+router.post(
+  "/products/newbrand",
+  AuthGuard,
+  Admin,
+  brandController.createBrand
+);
+
+router.post("/products/newwood", AuthGuard, Admin, woodController.createWood);
 
 module.exports = router;
