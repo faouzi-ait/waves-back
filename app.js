@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const config = require("./configuration/config");
 
 app.use(
@@ -14,6 +15,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cors());
 
 app.use("/api/v1", require("./routes/UserRoutes"));
 app.use("/api/v1", require("./routes/ProductsRoutes"));

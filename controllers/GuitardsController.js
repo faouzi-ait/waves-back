@@ -20,7 +20,7 @@ exports.createGuitards = async (req, res) => {
 exports.Guitard = async (req, res) => {
   // 1 FILTERING
   const query = { ...req.query };
-  const excludeFields = ["fields", "order", "sort", "limit"];
+  const excludeFields = ["fields", "sort", "page", "limit"];
 
   excludeFields.forEach(field => delete query[field]);
 
@@ -36,7 +36,7 @@ exports.Guitard = async (req, res) => {
       const sortBy = req.query.sort.split(",").join(" ");
       finalQuery = finalQuery.sort(sortBy);
     } else {
-      finalQuery = finalQuery.sort("-createdAt");
+      finalQuery = finalQuery.sort("_id");
     }
 
     // 4 FIELD LIMITING: ONLY DISPLAY THE SPECIFIED FIELDS
