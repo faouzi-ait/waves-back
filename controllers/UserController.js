@@ -97,6 +97,7 @@ exports.login = async (req, res, next) => {
     .cookie("w_token", token)
     .json({
       success: true,
+      user,
       token
     });
 };
