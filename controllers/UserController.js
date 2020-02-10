@@ -86,7 +86,8 @@ exports.login = async (req, res, next) => {
   // ISSUE THE TOKEN AND SEND IT BACK TO THE USER
   const token = jwt.sign(
     {
-      _id: user.id
+      _id: user.id,
+      email: user.email
     },
     config.params.TOKEN_SECRET
   );
@@ -97,7 +98,11 @@ exports.login = async (req, res, next) => {
     .cookie("w_token", token)
     .json({
       success: true,
-      user,
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name
+      },
       token
     });
 };
