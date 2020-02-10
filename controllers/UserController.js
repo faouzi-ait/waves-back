@@ -69,7 +69,7 @@ exports.login = async (req, res, next) => {
   if (!user) {
     return res.status(400).json({
       success: false,
-      message: "User not found"
+      message: "User not found, please try again"
     });
   }
 
@@ -101,7 +101,8 @@ exports.login = async (req, res, next) => {
       user: {
         id: user._id,
         email: user.email,
-        name: user.name
+        name: user.name,
+        lastname: user.surname
       },
       token
     });
