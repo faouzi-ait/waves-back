@@ -102,7 +102,8 @@ exports.login = async (req, res, next) => {
         id: user._id,
         email: user.email,
         name: user.name,
-        lastname: user.surname
+        lastname: user.surname,
+        isAdmin: user.role === 0 ? false : true
       },
       token
     });
