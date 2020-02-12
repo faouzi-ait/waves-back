@@ -47,21 +47,24 @@ exports.Guitard = async (req, res) => {
       finalQuery = finalQuery.select("-__v");
     }
 
+    // 5 PAGE FILTERING
     let page = req.query.page * 1 || 1;
     let limit = req.query.limit * 1 || 100;
     let skip = (page - 1) * limit;
 
+    // 6 EXECUTING THE QUERY
     const guitards = await finalQuery
       .limit(limit)
       .skip(skip)
       .populate("brand")
       .populate("woods");
 
-    const count = await guitards.countDocuments();
+    // 7 COUNT THE DOCUMENTS
+    const counts = await finalQuery.countDocuments({});
 
     res.status(200).json({
       success: true,
-      records: count,
+      counts,
       guitards
     });
   } catch (err) {
