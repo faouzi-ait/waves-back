@@ -47,10 +47,21 @@ exports.Guitard = async (req, res) => {
       finalQuery = finalQuery.select("-__v");
     }
 
-    const guitards = await finalQuery; /*.populate("brand").populate("woods");*/
+    let page = req.query.page * 1 || 1;
+    let limit = req.query.limit * 1 || 100;
+    let skip = (page - 1) * limit;
+
+    const guitards = await finalQuery
+      .limit(limit)
+      .skip(skip)
+      .populate("brand")
+      .populate("woods");
+
+    const count = await guitards.countDocuments();
 
     res.status(200).json({
       success: true,
+      records: count,
       guitards
     });
   } catch (err) {
