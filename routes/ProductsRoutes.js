@@ -2,6 +2,7 @@ const router = require("express").Router();
 const brandController = require("../controllers/BrandController");
 const guitardController = require("../controllers/GuitardsController");
 const woodController = require("../controllers/WoodController");
+//const mailController = require("../controllers/MailController");
 const AuthGuard = require("../guard/AuthGuard");
 const Admin = require("../guard/AdminCheck");
 
@@ -25,5 +26,7 @@ router.post(
 );
 
 router.post("/products/newwood", AuthGuard, Admin, woodController.createWood);
+
+//router.post("/contact/message", mailController.sendEmail);
 
 module.exports = router;
