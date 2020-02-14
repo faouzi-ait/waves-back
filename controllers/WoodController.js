@@ -2,10 +2,10 @@ const Wood = require("../models/Wood");
 
 exports.woods = async (req, res) => {
   try {
-    const woods = await Wood.find();
+    const records = await Wood.find();
     res.status(200).json({
       success: "success",
-      woods
+      records
     });
   } catch (err) {
     res.status(400).json({

@@ -19,10 +19,10 @@ exports.createBrand = async (req, res) => {
 
 exports.brands = async (req, res) => {
   try {
-    const brands = await Brands.find();
+    const records = await Brands.find();
     res.status(200).json({
       success: "success",
-      brands
+      records
     });
   } catch (err) {
     res.status(400).json({

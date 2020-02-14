@@ -53,7 +53,7 @@ exports.Guitard = async (req, res) => {
     let skip = (page - 1) * limit;
 
     // 6 EXECUTING THE QUERY
-    const guitards = await finalQuery
+    const records = await finalQuery
       .limit(limit)
       .skip(skip)
       .populate("brand")
@@ -65,7 +65,7 @@ exports.Guitard = async (req, res) => {
     res.status(200).json({
       success: true,
       counts,
-      guitards
+      records
     });
   } catch (err) {
     res.status(400).json({
