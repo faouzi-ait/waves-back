@@ -1,11 +1,13 @@
 const Brands = require("../models/Brands");
 
-exports.brands = async (req, res) => {
+exports.createBrand = async (req, res) => {
+  const brand = new Brands(req.body);
+
   try {
-    const brands = await Brands.find();
+    const newProduct = await brand.save();
     res.status(201).json({
       success: true,
-      brands
+      newProduct
     });
   } catch (err) {
     res.status(400).json({
@@ -15,14 +17,12 @@ exports.brands = async (req, res) => {
   }
 };
 
-exports.createBrand = async (req, res) => {
-  const brand = new Brands(req.body);
-
+exports.brands = async (req, res) => {
   try {
-    const newProduct = await brand.save();
-    res.status(201).json({
-      success: true,
-      newProduct
+    const brands = await Brands.find();
+    res.status(200).json({
+      success: "success",
+      brands
     });
   } catch (err) {
     res.status(400).json({

@@ -1,7 +1,7 @@
 const oauth = require("../configuration/oauth");
 const nodemailer = require("nodemailer");
 
-exports.sendEmail = async (req, res, next) => {
+exports.sendEmail = async (req, res) => {
   const { name, lastname, email, message } = req.body;
 
   let mailOptions = {

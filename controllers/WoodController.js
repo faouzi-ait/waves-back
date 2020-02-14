@@ -1,13 +1,11 @@
 const Wood = require("../models/Wood");
 
-exports.createWood = async (req, res) => {
-  const wood = new Wood(req.body);
-
+exports.woods = async (req, res) => {
   try {
-    const newWood = await wood.save();
-    res.status(201).json({
-      success: true,
-      newWood
+    const woods = await Wood.find();
+    res.status(200).json({
+      success: "success",
+      woods
     });
   } catch (err) {
     res.status(400).json({
@@ -17,12 +15,14 @@ exports.createWood = async (req, res) => {
   }
 };
 
-exports.woods = async (req, res) => {
+exports.createWood = async (req, res) => {
+  const wood = new Wood(req.body);
+
   try {
-    const woods = await Wood.find();
+    const newWood = await wood.save();
     res.status(201).json({
-      success: true,
-      woods
+      success: "success",
+      newWood
     });
   } catch (err) {
     res.status(400).json({
