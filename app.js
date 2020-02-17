@@ -15,7 +15,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
+app.options("*", cors());
 
 app.use("/api/v1", require("./routes/UserRoutes"));
 app.use("/api/v1", require("./routes/ProductsRoutes"));
