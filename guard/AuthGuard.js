@@ -11,6 +11,9 @@ module.exports = function auth(req, res, next) {
     });
   }
 
+  console.log(token);
+  console.log(token.split(" ")[1]);
+
   try {
     const verified = jwt.verify(
       token.split(" ")[1],
