@@ -4,5 +4,6 @@ const AuthGuard = require("../guard/AuthGuard");
 
 router.post("/register", userRoutes.register);
 router.post("/login", userRoutes.login);
+router.get("/list", userRoutes.list);
 
 module.exports = router;

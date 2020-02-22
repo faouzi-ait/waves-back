@@ -43,7 +43,7 @@ exports.register = async (req, res) => {
     });
   } catch (err) {
     res.status(400).json({
-      success: true,
+      success: false,
       message: err
     });
   }
@@ -107,6 +107,22 @@ exports.login = async (req, res, next) => {
       },
       token
     });
+};
+
+exports.list = async (req, res, next) => {
+  try {
+    const user = await User.find({});
+
+    res.status(200).json({
+      success: true,
+      user
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err
+    });
+  }
 };
 
 const validEmail = e => {

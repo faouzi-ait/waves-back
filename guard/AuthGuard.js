@@ -11,8 +11,6 @@ module.exports = function auth(req, res, next) {
     });
   }
 
-  console.log(token);
-
   try {
     const verified = jwt.verify(token, config.params.TOKEN_SECRET);
     req.user = verified;
