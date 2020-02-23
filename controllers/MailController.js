@@ -57,7 +57,6 @@ exports.sendConfirmationMail = async (req, res) => {
     <br />
     <h2>Order Summary</h2>
     <br/> 
-    <br/> 
     <table>
       <tr>
         <th>Product</th>
