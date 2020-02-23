@@ -125,6 +125,38 @@ exports.list = async (req, res, next) => {
   }
 };
 
+exports.updateUserPurchaseHistory = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        error: "The specified user id was not found"
+      });
+    }
+
+    const newHistoryList = [...user.history, req.body.shoppingCart];
+
+    user.history = newHistoryList;
+    user.save(err => {
+      if (err) {
+        console.error("Error while saving the history");
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      user
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err
+    });
+  }
+};
+
 const validEmail = e => {
   const filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
   return String(e).search(filter) !== -1;
