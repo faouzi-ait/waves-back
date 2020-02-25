@@ -125,6 +125,22 @@ exports.list = async (req, res, next) => {
   }
 };
 
+exports.getUserById = async (req, res, next) => {
+  try {
+    const user = await User.find({_id: req.params.id});
+
+    res.status(200).json({
+      success: true,
+      user
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err
+    });
+  }
+};
+
 exports.updateUserPurchaseHistory = async (req, res, next) => {
   try {
     const user = await User.findOne({ _id: req.params.id });
