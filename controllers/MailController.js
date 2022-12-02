@@ -1,57 +1,81 @@
-const oauth = require("../configuration/oauth");
-const nodemailer = require("nodemailer");
+const oauth = require('../configuration/oauth');
+const nodemailer = require('nodemailer');
 
-exports.sendEmail = async (req, res) => {
+exports.sendEmail = (req, res) => {
   const { name, lastname, email, message } = req.body;
 
   let mailOptions = {
     from: name,
-    to: "faouzi.aitelhara@gmail.com, joebarne15@gmail.com",
-    subject: "My site contact from: " + name,
+    to: 'faouzi.aitelhara@gmail.com, joebarne15@gmail.com',
+    subject: 'My site contact from: ' + name,
     text: message,
     html:
-      "Message from: " +
+      'Message from: ' +
       name +
       lastname +
-      "<br></br> Email: " +
+      '<br></br> Email: ' +
       email +
-      "<br></br> Message: " +
-      message
+      '<br></br> Message: ' +
+      message,
   };
 
   let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: oauth
+    service: 'gmail',
+    auth: oauth,
   });
 
-  try {
-    transporter.sendMail(mailOptions, (err, res) => {
-      err ? console.log(err) : console.log(res);
-    });
-
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      res.status(400).json({
+        status: 'fail',
+        message: 'Your message could not be sent, please try again later',
+      });
+      // const response = {
+      //   statusCode: 500,
+      //   body: JSON.stringify({
+      //     error: error.message,
+      //   }),
+      // };
+      // callback(null, response);
+    }
     res.status(200).json({
-      status: "success",
-      message: "Your message was successfully sent, thank you!"
+      status: 'success',
+      message: 'Your message was successfully sent, thank you!',
     });
-  } catch {
-    res.status(400).json({
-      status: "fail",
-      message: "Your message could not be sent, please try again later"
-    });
-  }
+    // const response = {
+    //   statusCode: 200,
+    //   body: JSON.stringify({
+    //     message: `Email processed succesfully!`,
+    //   }),
+    // };
+    // callback(null, response);
+  });
+
+  // try {
+  //   transporter.sendMail(mailOptions, (err, res) => {
+  //     err ? console.log(err) : console.log(res);
+  //   });
+  //   res.status(200).json({
+  //     status: 'success',
+  //     message: 'Your message was successfully sent, thank you!',
+  //   });
+  // } catch {
+  //   res.status(400).json({
+  //     status: 'fail',
+  //     message: 'Your message could not be sent, please try again later',
+  //   });
+  // }
 };
 
 exports.sendConfirmationMail = async (req, res) => {
   const { clientMail, user, order, total } = req.body;
 
   let mailOptions = {
-    from: "no-reply@waves.com",
+    from: 'no-reply@waves.com',
     to: clientMail,
-    subject: "Your Purchase Confirmation",
+    subject: 'Your Purchase Confirmation',
     html: `<h2>Order Confirmation</h2>
-    <p>Thank you ${user.name} ${
-      user.lastname
-    } for your purchase.<br />
+    <p>Thank you ${user.name} ${user.lastname} for your purchase.<br />
     The amount of: $${total} will be charged on your card.</p>
     <br />
     <br />
@@ -63,17 +87,17 @@ exports.sendConfirmationMail = async (req, res) => {
         <th>Price</th>
         <th>Quantity</th>
       </tr>
-      ${order.map(element => {
+      ${order.map((element) => {
         return `<tr><td>${element.name}</td><td>$${element.price}</td><td>${element.quantity}</td></tr>`;
       })}
     </table>
-    `
+    `,
   };
 
   try {
     let transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: oauth
+      service: 'gmail',
+      auth: oauth,
     });
 
     transporter.sendMail(mailOptions, (err, res) => {
@@ -81,13 +105,13 @@ exports.sendConfirmationMail = async (req, res) => {
     });
 
     res.status(200).json({
-      status: "success",
-      message: "Your confirmation mail was successfully sent, thank you!"
+      status: 'success',
+      message: 'Your confirmation mail was successfully sent, thank you!',
     });
   } catch {
     res.status(400).json({
-      status: "fail",
-      message: "Your message could not be sent, please try again later"
+      status: 'fail',
+      message: 'Your message could not be sent, please try again later',
     });
   }
 };
