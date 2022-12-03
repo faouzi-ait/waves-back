@@ -26,48 +26,20 @@ exports.sendEmail = (req, res) => {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      res.status(400).json({
+      console.log(error);
+      return res.status(400).json({
         status: 'fail',
         message: 'Your message could not be sent, please try again later',
       });
-      // const response = {
-      //   statusCode: 500,
-      //   body: JSON.stringify({
-      //     error: error.message,
-      //   }),
-      // };
-      // callback(null, response);
     }
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       message: 'Your message was successfully sent, thank you!',
     });
-    // const response = {
-    //   statusCode: 200,
-    //   body: JSON.stringify({
-    //     message: `Email processed succesfully!`,
-    //   }),
-    // };
-    // callback(null, response);
   });
-
-  // try {
-  //   transporter.sendMail(mailOptions, (err, res) => {
-  //     err ? console.log(err) : console.log(res);
-  //   });
-  //   res.status(200).json({
-  //     status: 'success',
-  //     message: 'Your message was successfully sent, thank you!',
-  //   });
-  // } catch {
-  //   res.status(400).json({
-  //     status: 'fail',
-  //     message: 'Your message could not be sent, please try again later',
-  //   });
-  // }
 };
 
-exports.sendConfirmationMail = async (req, res) => {
+exports.sendConfirmationMail = (req, res) => {
   const { clientMail, user, order, total } = req.body;
 
   let mailOptions = {
@@ -94,24 +66,16 @@ exports.sendConfirmationMail = async (req, res) => {
     `,
   };
 
-  try {
-    let transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: oauth,
-    });
-
-    transporter.sendMail(mailOptions, (err, res) => {
-      err ? console.log(err) : console.log(res);
-    });
-
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      res.status(400).json({
+        status: 'fail',
+        message: 'The message could not be sent, please try again later',
+      });
+    }
     res.status(200).json({
       status: 'success',
-      message: 'Your confirmation mail was successfully sent, thank you!',
+      message: 'Your confirmation message was successfully sent, thank you!',
     });
-  } catch {
-    res.status(400).json({
-      status: 'fail',
-      message: 'Your message could not be sent, please try again later',
-    });
-  }
+  });
 };
