@@ -7,7 +7,7 @@ exports.sendEmail = (req, res) => {
   let mailOptions = {
     from: name,
     to: 'faouzi.aitelhara@gmail.com, joebarne15@gmail.com',
-    subject: '[CONTACT-WAVE]: ' + name,
+    subject: '[ENQUIRY]: ' + name,
     text: message,
     html:
       'Message from: ' +
