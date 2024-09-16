@@ -4,5 +4,5 @@ module.exports = {
   clientId: process.env.clientId,
   clientSecret: process.env.clientSecret,
   refreshToken:
-    '1//045PHvBxeQNZaCgYIARAAGAQSNwF-L9IrjZ8qK1vvx9xLF8qBwADmgOGD8NB1nie9EBZjp1FpC_5xktSYe5GNAlSEDTzemR-ykwo'
+    '1//04V5B5QJMQ2XdCgYIARAAGAQSNwF-L9IrjcpHmaNgcPHv6RuCkD1DkiROTLXUw4cy81UrclxMO4TeYPEVR4yDzbNkhwrgqlxANJk'
 };
